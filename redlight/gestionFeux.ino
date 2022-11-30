@@ -30,5 +30,15 @@ void sequencePassagePieton(uint16_t waitTime) {
   //allumage rouge
   digitalWrite(RED_PORT, HIGH);
   delay(waitTime);
-
+}
+/**
+ * lecture depuis A0 d'une valeur de tension convertie vers une valeur en sec 25sec max
+ * @returns {uint16_t} temps en millis seconde
+ */
+uint16_t lectureTemps(){
+  //lecture du potentiometre sur A0
+  uint16_t potarLevel=analogRead(A0);
+  float voltValue=potarLevel*PAS_CAN;
+  /*  Serial.print("Valeur en volt :");Serial.print(voltValue);Serial.println("v");*/
+  return voltValue*voltValue*1000;
 }
