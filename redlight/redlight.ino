@@ -8,5 +8,10 @@ void setup() {
 void loop() {
   Serial.println("loop");
   // put your main code here, to run repeatedly:
+  
+  //lecture du potentiometre sur A0
+  uint8_t potarLevel=analogRead(A0);
+  Serial.println(potarLevel);
+  
   sequencePassagePieton(50000);
 }
