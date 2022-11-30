@@ -27,7 +27,9 @@ void loop() {
    tmElements_t tm;
 
   if (RTC.read(tm)) {
-    Serial.println(tm.Hour);
+    char tmp[6];
+    sprintf(tmp,"%2d:%2d",tm.Hour,tm.Minute);
+    Serial.println(tmp);
   }
   tft.setCursor(30,90);
   tft.setTextColor(ST77XX_MAGENTA);
