@@ -38,12 +38,14 @@ void initMainFrame(){
 void showTemp(float temp){
   tft.fillRect(50,50,50,14,BACKGROUND_COLOR);
   tft.setCursor(52,52);
+  char lbuff[16]="tmp :";
   char buff[8]="";
   dtostrf(temp, 2, 2, buff);
   char degSymbol=0xf7;
   buff[5]=degSymbol;
   buff[6]='\0';
   strcat(buff,"c");
+  strcat(lbuff,buff);
   Serial.println(buff);
   tft.print(buff);
 }
