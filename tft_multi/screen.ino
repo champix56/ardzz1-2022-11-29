@@ -1,15 +1,18 @@
+#include "config.h"
+
+#ifdef _ST7735_1_8_
+#define __TFT_
+#define __SCREEN_
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
 #include <SPI.h>
-#define TFT_CS        10
-#define TFT_RST        9 // Or set to -1 and connect to Arduino RESET pin
-#define TFT_DC         8
+
 #define W_SCREEN 128
 #define H_SCREEN 160
 #define BACKGROUND_COLOR ST77XX_BLACK
 #define FOREROUND_COLOR ST77XX_WHITE
 
-Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+Adafruit_ST7735 tft = Adafruit_ST7735(PIN_CS_TFT, PIN_DC_TFT, PIN_RST_TFT);
 void setupScreen() {
   //initialisation de l'ecran
   tft.initR(INITR_BLACKTAB);
@@ -38,15 +41,12 @@ void initMainFrame(){
 void showTemp(float temp){
   tft.fillRect(50,50,50,14,BACKGROUND_COLOR);
   tft.setCursor(52,52);
-  char lbuff[16]="tmp :";
   char buff[8]="";
   dtostrf(temp, 2, 2, buff);
   char degSymbol=0xf7;
   buff[5]=degSymbol;
   buff[6]='\0';
   strcat(buff,"c");
-  strcat(lbuff,buff);
-  Serial.println(buff);
   tft.print(buff);
 }
 void showButtons(const char *textL,const char *textR){
@@ -69,3 +69,5 @@ void showTime(uint8_t h,uint8_t m){
     tft.setTextSize(1);
     tft.print(tmp);
 }
+void showGPS(){}
+#endif

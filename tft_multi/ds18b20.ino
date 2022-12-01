@@ -1,15 +1,17 @@
-//includes
-#define HARDWARE_COMPONENT_TEMP
+#include "config.h"
+
+#ifdef _DS18B20_
+#define __TEMPERATURE_
 
 // Include the libraries we need
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
 // Data wire is plugged into port 2 on the Arduino
-#define ONE_WIRE_BUS 4
+
 
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
-OneWire oneWire(ONE_WIRE_BUS);
+OneWire oneWire(PIN_DS18B20);
 
 // Pass our oneWire reference to Dallas Temperature.
 DallasTemperature sensors(&oneWire);
@@ -25,3 +27,4 @@ bool loopTemp(float *temp) {
   if (*temp != DEVICE_DISCONNECTED_C)return true;
   else return false;
 }
+#endif
