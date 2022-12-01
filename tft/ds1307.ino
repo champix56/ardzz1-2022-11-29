@@ -1,4 +1,4 @@
-#define HARDWARE_RTC_COMPONENT
+#define HARDWARE_COMPONENT_RTC
 #include <Wire.h>
 #include <TimeLib.h>
 #include <DS1307RTC.h>
