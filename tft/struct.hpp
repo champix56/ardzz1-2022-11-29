@@ -18,7 +18,7 @@ struct S_Pressure{
 struct S_GPS{
   float lat,lng;
   float speed;  
-}
+};
 struct S_Sensor {
   
   tmElements_t tm;

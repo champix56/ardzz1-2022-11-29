@@ -4,5 +4,5 @@
   
 
   #define CS_PIN_SD 7
-  #define SD_FILENAME "sensors.csv"
+  #define SD_FILENAME "sensors.txt"
 #endif
