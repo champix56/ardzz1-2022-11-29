@@ -11,10 +11,19 @@ struct S_Gyro {
   struct  S_Accel accel;
   struct S_Att att;
 };
+struct S_Pressure{
+  uint16_t pressure;
+  float altitude;
+};
+struct S_GPS{
+  float lat,lng;
+  float speed;  
+}
 struct S_Sensor {
   
+  tmElements_t tm;
   float temperature;
-  uint16_t pressure;
   struct S_Gyro gyro;
+  struct S_GPS gps;
 };
 #endif

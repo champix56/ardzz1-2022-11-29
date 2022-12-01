@@ -1,5 +1,6 @@
 //https://learn.adafruit.com/adafruit-gfx-graphics-library/graphics-primitives
-#include "struct.h"
+#include "struct.hpp"
+#include "sd_csv.h"
 
 struct S_Sensor sensorsDatas;
 
@@ -21,5 +22,6 @@ void loop() {
     showTemp(sensorsDatas.temperature);
   }
 
+  writeSDData(sensorsDatas);
   loopScreen();
 }
