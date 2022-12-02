@@ -50,7 +50,15 @@ void loop() {
       //showGPS();
     //#endif
   #endif
+  #if defined(UNIT_DATA_TREATMENT) || defined(UNIT_SENSORS)
+    serialValuesExchange(&sensorsDatas);
+  #endif
+  #if defined(UNIT_DATA_TREATMENT) && defined(__SCREEN_)
+    showAll();
+  #endif
   #ifdef __SD_
   writeSDData(sensorsDatas);
   #endif
+  
+
 }

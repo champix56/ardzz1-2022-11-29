@@ -26,4 +26,8 @@ struct S_Sensor {
   struct S_Gyro gyro;
   struct S_GPS gps;
 };
+union U_Sensor{
+  struct S_Sensor datas;
+  uint8_t bytes[sizeof(struct S_Sensors)];
+};
 #endif
