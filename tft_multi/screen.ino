@@ -1,3 +1,4 @@
+#ifdef _ST7735_
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
 #include <SPI.h>
@@ -46,7 +47,7 @@ void showTemp(float temp){
   buff[6]='\0';
   strcat(buff,"c");
   strcat(lbuff,buff);
-  Serial.println(buff);
+ // Serial.println(buff);
   tft.print(buff);
 }
 void showButtons(const char *textL,const char *textR){
@@ -69,3 +70,4 @@ void showTime(uint8_t h,uint8_t m){
     tft.setTextSize(1);
     tft.print(tmp);
 }
+#endif

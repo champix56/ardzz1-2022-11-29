@@ -1,8 +1,5 @@
-#include "sd_all.h"
 #include "config.h"
-
-#if defined(_SD_CSV_) && !defined(_SD_BIN_)
-  
+#if defined(_SD_CSV_)&&!defined(_SD_BIN_) 
 #include "struct.hpp"
 #include <SD.h>
 File myFile;
