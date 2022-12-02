@@ -1,6 +1,22 @@
 #ifndef __CONFIG_H
   #define __CONFIG_H
-  
+  /* unit type*/
+  //#define UNIT_SENSORS
+  #define UNIT_DATA_TREATMENT
+
+  #ifdef UNIT_SENSORS
+    #define _DS1307_ 
+    #define _DS18B20_
+    #define _SERIAL_GPS_
+  #endif
+  #ifdef UNIT_DATA_TREATMENT
+    #define _ST7735_
+    #define _SD_CSV_
+  #endif
+
+
+
+
   /*RTC LISTE*/
   //#define _DS1307_ "RTC1307"
     #if defined(_DS1307_)
@@ -12,7 +28,7 @@
   //#define _SD_CSV_
   //#define _SD_BIN_
   #if defined(_SD_CSV_)||defined(_SD_BIN_)
-    #include "sd.h"
+    #include "sd_all.h"
     #define PIN_CS_SD 7
     #if defined(_SD_CSV_)
       #define SD_FILENAME "sensors.txt"
@@ -22,7 +38,7 @@
   #endif
 
   /*TEMPERATURE CONFIG LISTE*/
-  //#define _DS18B20_ "DS18B20"
+  //#define _DS18B20_
   #ifdef _DS18B20_
     #define PIN_DS18B20 4
   #endif
