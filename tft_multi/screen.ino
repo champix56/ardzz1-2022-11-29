@@ -6,7 +6,7 @@
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
 #include <SPI.h>
-
+#include "pfd_widget.h"
 #define W_SCREEN 128
 #define H_SCREEN 160
 #define BACKGROUND_COLOR ST77XX_BLACK
@@ -20,54 +20,63 @@ void setupScreen() {
   tft.fillScreen(BACKGROUND_COLOR);
   initMainFrame();
 }
-void loopScreen(){
-   tft.setCursor(30,90);
+void loopScreen() {
+  tft.setCursor(30, 90);
   tft.setTextColor(ST77XX_MAGENTA);
   tft.setTextSize(1);
   tft.print("bon appetit");
-  tft.setCursor(30,100);
+  tft.setCursor(30, 100);
   tft.print("biensur");
 }
-void initMainFrame(){
+void initMainFrame() {
   //bandeau
-  tft.fillRect(0,0,W_SCREEN,7,ST77XX_CYAN);
+  tft.fillRect(0, 0, W_SCREEN, 7, ST77XX_CYAN);
   //affiche heure
-  showTime(0,0);
-  tft.setCursor(15,50);
+  showTime(0, 0);
+  tft.setCursor(15, 50);
   tft.setTextColor(FOREROUND_COLOR);
   tft.print("Temp :");
-  showButtons("STOP","START");
+  showButtons("STOP", "START");
 }
-void showTemp(float temp){
-  tft.fillRect(50,50,50,14,BACKGROUND_COLOR);
-  tft.setCursor(52,52);
-  char buff[8]="";
+void showTemp(float temp) {
+  tft.fillRect(50, 50, 50, 14, BACKGROUND_COLOR);
+  tft.setCursor(52, 52);
+  char buff[8] = "";
   dtostrf(temp, 2, 2, buff);
-  char degSymbol=0xf7;
-  buff[5]=degSymbol;
-  buff[6]='\0';
-  strcat(buff,"c");
+  char degSymbol = 0xf7;
+  buff[5] = degSymbol;
+  buff[6] = '\0';
+  strcat(buff, "c");
   tft.print(buff);
 }
-void showButtons(const char *textL,const char *textR){
-  tft.fillRect(0,H_SCREEN-13,(int)(W_SCREEN/2.0F),13,ST77XX_RED);
-  tft.fillRect((W_SCREEN/2.0F),H_SCREEN-13,(int)(W_SCREEN/2.0F),13,ST77XX_GREEN);
-  tft.fillCircle((W_SCREEN/2.0F),H_SCREEN,14,ST77XX_BLUE);
+void showButtons(const char *textL, const char *textR) {
+  tft.fillRect(0, H_SCREEN - 13, (int)(W_SCREEN / 2.0F), 13, ST77XX_RED);
+  tft.fillRect((W_SCREEN / 2.0F), H_SCREEN - 13, (int)(W_SCREEN / 2.0F), 13, ST77XX_GREEN);
+  tft.fillCircle((W_SCREEN / 2.0F), H_SCREEN, 14, ST77XX_BLUE);
   tft.setTextSize(1);
   tft.setTextColor(ST77XX_WHITE);
-  tft.setCursor(12,H_SCREEN-10);
+  tft.setCursor(12, H_SCREEN - 10);
   tft.print(textL);
-  tft.setCursor((W_SCREEN/2.0F)+24,H_SCREEN-10);
+  tft.setCursor((W_SCREEN / 2.0F) + 24, H_SCREEN - 10);
   tft.print(textR);
 }
-void showTime(uint8_t h,uint8_t m){
-   char tmp[6];
-    sprintf(tmp,"%02d:%02d",h,m);
-    tft.fillRect(44,0,40,14,ST77XX_CYAN);
-    tft.setCursor(49,4);
-    tft.setTextColor(ST77XX_RED);
-    tft.setTextSize(1);
-    tft.print(tmp);
+void showTime(uint8_t h, uint8_t m) {
+  char tmp[6];
+  sprintf(tmp, "%02d:%02d", h, m);
+  tft.fillRect(44, 0, 40, 14, ST77XX_CYAN);
+  tft.setCursor(49, 4);
+  tft.setTextColor(ST77XX_RED);
+  tft.setTextSize(1);
+  tft.print(tmp);
 }
-void showGPS(){}
+void showGPS() {}
+void showPFD(uint8_t x, uint8_t y, uint8_t w, uint8_t h, int16_t pitch, int16_t roll) {
+  tft.fillRect(x, y, w, h, ST77XX_BLUE);
+  uint8_t horizon = getPFDPitch(pitch, h);
+  tft.fillRect(x, horizon + y, w, h - horizon + y, ST77XX_GREEN);
+
+  lineposition_t pitchObj = getPFDRoll(roll, w / 4.0F, w, h);
+  tft.drawLine(pitchObj.point1.x + x, pitchObj.point1.y + y, pitchObj.point2.x + x, pitchObj.point1.y + y, ST7735_WHITE);
+  tft.fillCircle(w / 2.0F + x, h / 2.0F + y, w / 10.0F, ST77XX_WHITE);
+}
 #endif
